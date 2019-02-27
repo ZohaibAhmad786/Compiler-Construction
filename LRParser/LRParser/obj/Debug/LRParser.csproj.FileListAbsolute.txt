@@ -1,0 +1,6 @@
+F:\Study Material\BSCS-7C\Compiler Construction\LRParser\LRParser\bin\Debug\LRParser.exe.config
+F:\Study Material\BSCS-7C\Compiler Construction\LRParser\LRParser\bin\Debug\LRParser.exe
+F:\Study Material\BSCS-7C\Compiler Construction\LRParser\LRParser\bin\Debug\LRParser.pdb
+F:\Study Material\BSCS-7C\Compiler Construction\LRParser\LRParser\obj\Debug\LRParser.csprojResolveAssemblyReference.cache
+F:\Study Material\BSCS-7C\Compiler Construction\LRParser\LRParser\obj\Debug\LRParser.exe
+F:\Study Material\BSCS-7C\Compiler Construction\LRParser\LRParser\obj\Debug\LRParser.pdb

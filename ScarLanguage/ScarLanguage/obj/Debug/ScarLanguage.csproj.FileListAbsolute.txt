@@ -1,0 +1,9 @@
+F:\Study Material\BSCS-7C\Compiler Construction\ScarLanguage\ScarLanguage\bin\Debug\ScarLanguage.exe.config
+F:\Study Material\BSCS-7C\Compiler Construction\ScarLanguage\ScarLanguage\bin\Debug\ScarLanguage.exe
+F:\Study Material\BSCS-7C\Compiler Construction\ScarLanguage\ScarLanguage\bin\Debug\ScarLanguage.pdb
+F:\Study Material\BSCS-7C\Compiler Construction\ScarLanguage\ScarLanguage\obj\Debug\ScarLanguage.csprojResolveAssemblyReference.cache
+F:\Study Material\BSCS-7C\Compiler Construction\ScarLanguage\ScarLanguage\obj\Debug\ScarLanguage.Form1.resources
+F:\Study Material\BSCS-7C\Compiler Construction\ScarLanguage\ScarLanguage\obj\Debug\ScarLanguage.Properties.Resources.resources
+F:\Study Material\BSCS-7C\Compiler Construction\ScarLanguage\ScarLanguage\obj\Debug\ScarLanguage.csproj.GenerateResource.Cache
+F:\Study Material\BSCS-7C\Compiler Construction\ScarLanguage\ScarLanguage\obj\Debug\ScarLanguage.exe
+F:\Study Material\BSCS-7C\Compiler Construction\ScarLanguage\ScarLanguage\obj\Debug\ScarLanguage.pdb

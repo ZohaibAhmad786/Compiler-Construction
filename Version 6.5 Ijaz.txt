@@ -1,0 +1,610 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Collections;
+using System.Data;
+
+namespace ScarLanguageVersion_2._0
+{
+    public partial class Form1 : Form
+    {
+        string varAssign;
+        string assign;
+        string varValue;
+        Hashtable ht = new Hashtable();
+        Hashtable ht1 = new Hashtable();
+        string datatype = null;
+        bool flag = true;
+        string result;
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void btnCompile_Click(object sender, EventArgs e)
+        {
+            int num1 = 0;
+            float num2 = 0;
+            string var = null;
+            #region Variable Declaration
+            txtoutPut.Clear();
+            flag = true;
+            ht.Clear();
+            ht1.Clear();
+            string[] Lines = txtCode.Lines;
+
+            for (int i = 0; i < Lines.Count(); i++)
+            {
+
+
+                if (Lines[i].Trim().EndsWith(";"))
+                {
+                    if (Lines[i].Contains(";"))
+                    {
+                        string[] collonChecking = Lines[i].Trim().Split(';');      // For multiple variable declaration 
+                                                                                   // txtoutPut.Text += "Collon Breaking " + collonChecking.Count() + " \n"; // checking how many Collon Exit in single lines
+                        foreach (var item in collonChecking)
+                        {
+                            if (item != "")
+                            {
+                                string[] dtype_varaible = item.Trim().Split(' ');
+                                dtype_varaible.Count();
+                                foreach (var item1 in dtype_varaible)
+                                {
+                                    if (item1 != "")
+                                    {
+
+                                        //#region CHECK START INT FLOAT CHAR
+                                        if (dtype_varaible[0].StartsWith("INT") || dtype_varaible[0].StartsWith("FLOAT") || dtype_varaible[0].StartsWith("CHAR"))//
+                                        {//
+                                            if (item1.Equals("INT") || item1.Equals("FLOAT") || item1.Equals("CHAR"))
+                                            {
+                                                datatype = item1;                //Getting datatype
+                                            }
+                                            else
+                                            {
+
+                                                if (item1.TrimStart().TrimEnd().Contains(","))
+                                                {
+                                                    #region Comma spliting
+
+                                                    string[] CommaArray = item1.Trim().Split(',');
+                                                    foreach (var item2 in CommaArray)
+                                                    {
+                                                        try
+                                                        {
+                                                            if (item2.Trim().Contains("="))
+                                                            {
+                                                                foreach (var a in item2.Trim().Split(' '))
+                                                                {
+                                                                    if (a != "")
+                                                                    {
+                                                                        foreach (var b in a.Trim().Split('='))
+                                                                        {
+                                                                            if (b != "")
+                                                                            {
+                                                                                if (b.Trim().StartsWith("@") && !b.Trim().EndsWith("@"))
+                                                                                {
+                                                                                    assign = b;
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    if (b != "" && flag == true)
+                                                                                    {
+                                                                                        if (dtype_varaible[0] != datatype && ht.ContainsKey(assign.ToLower()) == true)
+                                                                                        //if (ht.ContainsKey(var.ToLower()))
+                                                                                        {
+                                                                                            if (ht1.ContainsKey(assign.ToLower()))
+                                                                                            {
+                                                                                                ht1[assign.ToLower()] = b;
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                ht1.Add(assign.ToLower(), b);
+                                                                                            }
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            if (!ht.ContainsKey(assign.ToLower())/* && Convert.ToString(ht[assign.ToLower()]) != datatype*/)
+                                                                                            {
+                                                                                                ht.Add(assign.ToLower(), datatype);
+                                                                                                ht1.Add(assign.ToLower(), b);
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                txtoutPut.Text += "Already intialize Datatype " + datatype + " Variable " + var + "Lines " + i + " \n";
+                                                                                                flag = false;
+                                                                                            }
+                                                                                        }
+                                                                                        //flag = true;
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        txtoutPut.Text += "Value Assignment Error " + b + " line " + i + " \n";
+                                                                                        flag = false;
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                //multitimes == repeated
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+
+                                                            }
+                                                            else if (item2.StartsWith("@") && !item2.EndsWith("@"))
+                                                            {
+                                                                ht.Add(item2.ToLower(), datatype);
+                                                            }
+
+                                                            else
+                                                            {
+                                                                if (item2 != "")
+                                                                {
+                                                                    txtoutPut.Text += "Variable Declaration Error " + item2 + " line " + i + " \n";
+                                                                    flag = false;
+                                                                }
+                                                                else
+                                                                {
+                                                                    flag = true;
+                                                                }
+                                                            }
+                                                        }
+                                                        catch (Exception)
+                                                        {
+                                                            txtoutPut.Text += "Varabile DECLARATION ERROR Repeated " + item2 + " line " + i + " \n";
+                                                            flag = false;
+                                                        }
+                                                    }
+                                                    #endregion
+                                                }
+                                                else
+                                                {
+                                                    try
+                                                    {
+                                                        #region Never start with '=' other portion in else statement
+
+
+                                                        if (item1.Trim().StartsWith("="))
+                                                        {
+                                                            txtoutPut.Text += "Assignment Error " + item1 + " line " + i + " \n";
+                                                            flag = false;
+                                                        }
+                                                        else
+                                                        {
+                                                            #region var never start and end with only @
+                                                            if (item1.StartsWith("@") && !item1.EndsWith("@"))
+                                                            {
+
+                                                                // ht.Add(item3.ToLower(), datatype);
+                                                                if (item1.Contains("="))
+                                                                {
+                                                                    string[] assignOp = item1.Trim().Split('=');
+                                                                    foreach (var item3 in assignOp)
+                                                                    {
+                                                                        // string expression = item1;
+                                                                        if (item3.Trim().StartsWith("="))
+                                                                        {
+                                                                            //Error
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            if (item3.Trim().StartsWith("@") && !item3.Trim().EndsWith("@"))
+                                                                            {
+                                                                                var = item3;
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                if (item3 != "" && flag == true)
+                                                                                {
+                                                                                    if (dtype_varaible[0] != datatype && ht.ContainsKey(var.ToLower()) == true)
+                                                                                    //if (ht.ContainsKey(var.ToLower()))
+                                                                                    {
+                                                                                        if (ht1.ContainsKey(var.ToLower()))
+                                                                                        {
+                                                                                            ht1[var.ToLower()] = item3;
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            ht1.Add(var.ToLower(), item3);
+                                                                                        }
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        if (!ht.ContainsKey(var.ToLower()) && Convert.ToString(ht[var.ToLower()]) != datatype)
+                                                                                        {
+
+                                                                                            try
+                                                                                            {
+                                                                                                ht.Add(var.ToLower(), datatype);
+                                                                                                if (ht[var.ToLower()].Equals("INT"))
+                                                                                                {
+                                                                                                    ht1.Add(var.ToLower(), Convert.ToInt32(item3));
+                                                                                                    flag = true;
+                                                                                                }
+                                                                                                else if (ht[var.ToLower()].Equals("FLOAT"))
+                                                                                                {
+                                                                                                    ht1.Add(var.ToLower(), float.Parse(item3.ToString()));
+                                                                                                    flag = true;
+                                                                                                }
+                                                                                                else if (ht[var.ToLower()].Equals("CHAR"))
+                                                                                                {
+                                                                                                    if (item3.Length > 0 && item3.Length <= 1)
+                                                                                                    {//error value inChar
+                                                                                                        ht1.Add(var.ToLower(), item3[0]);
+                                                                                                        flag = true;
+                                                                                                    }
+                                                                                                    else
+                                                                                                    {
+                                                                                                        //length greater than 1
+                                                                                                        txtoutPut.Text += "Length greate than 1 char " + item3 + " Variable " + var + "Lines " + i + " \n";
+                                                                                                        flag = false;
+                                                                                                    }
+                                                                                                }
+                                                                                                else
+                                                                                                {
+                                                                                                    txtoutPut.Text += "Unknown data type " + datatype + " Variable " + var + "Lines " + i + " \n";
+                                                                                                    flag = false;
+                                                                                                }
+                                                                                                //ht1.Add(var.ToLower(), item3);
+
+                                                                                            }
+                                                                                            catch (Exception)
+                                                                                            {
+                                                                                                txtoutPut.Text += "Parsing Error " + datatype + " Variable " + var + "Lines " + i + " \n";
+                                                                                                flag = false;
+                                                                                            }
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            txtoutPut.Text += "Already intialize Datatype " + datatype + " Variable " + var + "Lines " + i + " \n";
+                                                                                            flag = false;
+                                                                                        }
+                                                                                    }
+                                                                                    //flag = true;
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    txtoutPut.Text += "Value Assignment Error " + item3 + " line " + i + " \n";
+                                                                                    flag = false;
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+
+                                                                }
+                                                                else
+                                                                {
+                                                                    #region only single @A Var Dec
+
+                                                                    if (item1.StartsWith("@") && !item1.EndsWith("@"))
+                                                                    {
+
+                                                                        ht.Add(item1.ToLower(), datatype);
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        if (item1 != "")
+                                                                        {
+                                                                            txtoutPut.Text += "Variable Declaration Error " + item1 + " line " + i + " \n";
+                                                                            flag = false;
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            flag = true;
+                                                                        }
+                                                                    }
+                                                                    #endregion
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                if (item1 != "")
+                                                                {
+                                                                    txtoutPut.Text += "Variable Declaration Error " + item1 + " line " + i + " \n";
+                                                                    flag = false;
+                                                                }
+                                                                else
+                                                                {
+                                                                    flag = true;
+                                                                }
+                                                            }
+                                                            #endregion
+                                                        }
+                                                        #endregion
+                                                    }
+                                                    #region MyRegion
+                                                    //catch (Exception EX)
+                                                    //{
+                                                    //    txtoutPut.Text += EX + " " + item1 + " line " + i + " \n";
+                                                    //    flag = false;
+                                                    //}
+
+
+                                                    //else
+                                                    //{
+                                                    //    #region only single @A Var Dec
+                                                    //    if (item1.StartsWith("@"))
+                                                    //    {
+                                                    //        ht.Add(item1.ToLower(), datatype);
+                                                    //    }
+                                                    //    else
+                                                    //    {
+                                                    //        if (item1 != "")
+                                                    //        {
+                                                    //            txtoutPut.Text += "Variable Declaration Error " + item1 + " line " + i + " \n";
+                                                    //            flag = false;
+                                                    //        }
+                                                    //        else
+                                                    //        {
+                                                    //            flag = true;
+                                                    //        }
+                                                    //    }
+                                                    //    #endregion
+                                                    //}
+
+                                                    //}
+                                                    #endregion
+                                                    catch (Exception)
+                                                    {
+                                                        txtoutPut.Text += "Varabile DECLARATION ERROR Repeated " + item1 + " line " + i + " \n";
+                                                        flag = false;
+                                                    }
+                                                    #endregion
+                                                }
+                                            }
+                                        }//
+                                        else
+                                        {
+                                            //SAVED IN FILE
+                                            foreach (var A in item.Trim().Split(' '))
+                                            {
+                                                varAssign += A;
+                                            }
+                                            varValue = varAssign;
+                                            if (varValue.Trim().Contains(","))
+                                            {
+                                                string[] arraycommasplitting = varValue.Trim().Split(',');
+                                                foreach (var a in arraycommasplitting)
+                                                {
+
+                                                    string LHS = a.Trim().Split('=')[0];
+                                                    string RHS = a.Trim().Split('=')[1];
+                                                    if (RHS.Trim().Contains("/"))
+                                                    {
+
+                                                    }
+                                                    else if (RHS.Trim().Contains("*"))
+                                                    {
+
+                                                    }
+                                                    else if (RHS.Trim().Contains("+"))
+                                                    {
+
+                                                    }
+                                                    else if (RHS.Trim().Contains("-"))
+                                                    {
+
+                                                    }
+                                                    else
+                                                    {
+
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
+                                                //not contains Comma
+                                                string LHS = varValue.Trim().Split('=')[0];
+                                                string RHS = varValue.Trim().Split('=')[1];
+                                                if (RHS.Trim().Contains("/"))
+                                                {
+                                                    DataTable dt = new DataTable();
+                                                    string LhS = RHS.Trim().Split('/')[0];
+                                                    string RhS = RHS.Trim().Split('/')[1];
+                                                    if (LhS.StartsWith("@") && !LhS.EndsWith("@"))
+                                                    {
+
+                                                        if (ht.ContainsKey(LhS.ToLower()) && ht1.ContainsKey(LhS.ToLower()))
+                                                        {
+                                                            result +=Convert.ToInt32( ht1[LhS.ToLower()]) + "/";
+                                                            flag = true;
+                                                        }
+                                                        else
+                                                        {
+                                                            txtoutPut.Text += "Error 420";
+                                                            flag = false;
+                                                        }
+                                                    }
+                                                    else if (RhS.StartsWith("@") && !RhS.EndsWith("@"))
+                                                    {
+
+                                                        if (ht.ContainsKey(RhS.ToLower()) && ht1.ContainsKey(RhS.ToLower()))
+                                                        {
+                                                            if (ht[RhS.ToLower()].Equals("INT"))
+                                                            {
+                                                                result += Convert.ToInt32( ht1[RhS.ToLower()]);
+                                                                flag = true;
+                                                            }
+                                                            else if(ht[RhS.ToLower()].Equals("FLOAT"))
+                                                            {
+                                                                result += float.Parse(ht1[RhS.ToLower()].ToString());
+                                                                flag = true;
+                                                            }else
+                                                            {
+                                                                //error value inChar
+                                                            }
+                                                            
+                                                        }
+                                                        else
+                                                        {
+                                                            txtoutPut.Text += "Error 421";
+                                                            flag = false;
+                                                        }
+                                                    }
+                                                    if (!LhS.StartsWith("@") && !LhS.EndsWith("@"))
+                                                    {
+                                                        result += LhS + "/";
+                                                    }
+                                                    else if (!RhS.StartsWith("@") && !RhS.EndsWith("@"))
+                                                    {
+                                                        result += RhS;
+
+                                                    }
+                                                    result = ""+dt.Compute("((/){0,1}([0-9a-zA-z])))", result);
+                                                    varAssign = null;
+                                                }
+                                                else if (RHS.Trim().Contains("*"))
+                                                {
+
+                                                }
+                                                else if (RHS.Trim().Contains("+"))
+                                                {
+
+                                                }
+                                                else if (RHS.Trim().Contains("-"))
+                                                {
+
+                                                }
+                                                else
+                                                {
+                                                    if (ht.ContainsKey(LHS.ToLower()) && ht1.ContainsKey(LHS.ToLower()) && flag == true)
+                                                    {
+                                                        //YHN PAR PHLY HT1 MN DATA INSERT KRNA HA
+
+                                                        ht1[LHS.ToLower()] = RHS;
+
+
+                                                    }
+                                                    else if (ht.ContainsKey(LHS.ToLower()) && !ht1.ContainsKey(LHS.ToLower()))
+                                                    {
+                                                        ht1.Add(LHS.ToLower(), RHS);
+                                                    }
+                                                    else
+                                                    {
+                                                        txtoutPut.Text += "variable are repeated , '=' repeated " + LHS + " Lines " + i + "\n";
+                                                        flag = false;
+
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        //    #endregion
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    txtoutPut.Text += "The Error ';' on Line " + i + "\n";
+                    flag = false;
+                }
+
+
+            }
+            if (flag == true)
+            {
+                txtoutPut.Text += "Variable succesfull declared \n ";
+            }
+
+            #region HASH_TABLE DATA
+            txtoutPut.Clear();
+            foreach (var entries in ht.Keys)
+            {
+                txtoutPut.Text += "Key = " + entries + "  Datatype = " + ht[entries] + " \n ";
+            }
+            foreach (var entries in ht1.Keys)
+            {
+                txtoutPut.Text += "Key = " + entries + "  Datatype = " + ht1[entries] + " \n ";
+            }
+            #endregion
+
+            #region HardCode Value Assignment or Value Input
+            #endregion
+
+            #region Mathematic Operation
+            #endregion
+
+
+
+        }
+    }
+}
+
+#region Rough Work
+/*    
+ *    
+ *    else if (item1.Trim().Contains('/'))
+                                        {
+                                            try
+                                            {
+                                                string oparatorSolving = item1.Trim().Split('=')[0];
+                                                foreach (var item4 in oparatorSolving)
+                                                {
+
+                                                }
+                                            }
+                                            catch (Exception)
+                                            {
+
+                                            }
+                                        }
+                                        else if (item1.Trim().Contains('*'))
+                                        {
+                                            try
+                                            {
+                                                string[] oparatorSolving = item1.Trim().Split('=');
+                                                foreach (var item4 in oparatorSolving)
+                                                {
+
+                                                }
+                                            }
+                                            catch (Exception)
+                                            {
+
+                                            }
+                                        }
+                                        else if (item1.Trim().Contains('+'))
+                                        {
+                                            try
+                                            {
+                                                string[] oparatorSolving = item1.Trim().Split('=');
+                                                foreach (var item4 in oparatorSolving)
+                                                {
+
+                                                }
+                                            }
+                                            catch (Exception)
+                                            {
+
+                                            }
+                                        }
+                                        else if (item1.Trim().Contains('-'))
+                                        {
+                                            try
+                                            {
+                                                string[] oparatorSolving = item1.Trim().Split('=');
+                                                foreach (var item4 in oparatorSolving)
+                                                {
+
+                                                }
+                                            }
+                                            catch (Exception)
+                                            {
+
+                                            }
+                                        }
+                                        
+     
+    */
+#endregion

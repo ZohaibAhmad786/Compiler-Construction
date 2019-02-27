@@ -1,0 +1,144 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Collections;
+
+namespace ScarLanguageVersion_2._0
+{
+    public partial class Form1 : Form
+    {
+        Hashtable ht = new Hashtable();
+        string datatype = null;
+        bool flag = true;
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void btnCompile_Click(object sender, EventArgs e)
+        {
+            #region Variable Declaration
+            txtErrorArea.Clear();
+            flag = true;
+            ht.Clear();
+            string[] Lines = txtCode.Lines;
+            for (int i = 0; i < Lines.Count(); i++)
+            {
+
+
+                if (Lines[i].Trim().EndsWith(";"))
+                {
+                    if (Lines[i].Contains(";"))
+                    {
+                        string[] collonChecking = Lines[i].Trim().Split(';');      // For multiple variable declaration 
+                                                                                   // txtErrorArea.Text += "Collon Breaking " + collonChecking.Count() + " \n"; // checking how many Collon Exit in single lines
+                        foreach (var item in collonChecking)
+                        {
+                            if (item != "")
+                            {
+                                string[] dtype_varaible = item.Trim().Split(' ');
+                                dtype_varaible.Count();
+                                foreach (var item1 in dtype_varaible)
+                                {
+                                    if (item1.Equals("INT") || item1.Equals("FLOAT") || item1.Equals("CHAR"))
+                                    {
+                                        datatype = item1;                //Getting datatype
+                                    }
+                                    else
+                                    {
+                                        if (item1.TrimStart().TrimEnd().Contains(","))
+                                        {
+                                            string[] CommaArray = item1.Trim().Split(',');
+                                            foreach (var item2 in CommaArray)
+                                            {
+                                                try
+                                                {
+                                                    if (item2.StartsWith("@"))
+                                                    {
+                                                        ht.Add(item2.ToLower(), datatype);
+                                                    }
+                                                    else
+                                                    {
+                                                        if (item2 != "")
+                                                        {
+                                                            txtErrorArea.Text += "Variable Declaration Error " + item2 + " \n";
+                                                            flag = false;
+                                                        }
+                                                        else
+                                                        {
+                                                            flag = true;
+                                                        }
+                                                    }
+                                                }
+                                                catch (Exception)
+                                                {
+                                                    txtErrorArea.Text += "Varabile MultiTimes Repeated " + item2 + " line " + i + " \n";
+                                                    flag = false;
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            try
+                                            {
+                                                if (item1.StartsWith("@"))
+                                                {
+                                                    ht.Add(item1.ToLower(), datatype);
+                                                }
+                                                else
+                                                {
+                                                    if (item1 != "")
+                                                    {
+                                                        txtErrorArea.Text += "Variable Declaration Error " + item1 + " \n";
+                                                        flag = false;
+                                                    }
+                                                    else
+                                                    {
+                                                        flag = true;
+                                                    }
+                                                }
+
+                                            }
+                                            catch (Exception)
+                                            {
+                                                txtErrorArea.Text += "Varabile MultiTimes Repeated " + item1 + " line " + i + " \n";
+                                                flag = false;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    txtErrorArea.Text += "The Error ';' on Line " + i + "\n";
+                }
+
+
+            }
+            if (flag == true)
+            {
+                txtErrorArea.Text += "Variable succesfull declared \n ";
+            }
+            #endregion
+
+            #region HASH_TABLE DATA
+            txtoutPut.Clear();
+            foreach (var entries in ht.Keys)
+            {
+                txtoutPut.Text += "Key = " + entries + "  Datatype = " + ht[entries] + " \n ";
+            }
+            #endregion
+
+
+        }
+    }
+}

@@ -1,0 +1,252 @@
+#region Comments
+                                        //if (item1.Trim().Contains("=") && !item1.Trim().Contains("+") || !item1.Trim().Contains("-") || !item1.Trim().Contains("*") || !item1.Trim().Contains("/"))
+                                        //{
+                                        //    if (item1.Trim().Contains(','))
+                                        //    {
+                                        //        string[] commaSpliting = item1.Trim().Split(',');
+                                        //        foreach (var comma in commaSpliting)
+                                        //        {
+                                        //            string varAssign = comma.Trim().Split('=')[0];
+                                        //            string varValue = comma.Trim().Split('=')[1];
+                                        //            if (varValue != "")
+                                        //            {
+                                        //                if (item1.Trim().StartsWith("@") && item1.Trim().EndsWith("@"))
+                                        //                {
+                                        //                    txtErrorArea.Text += "Variable are not Defined Clearly " + comma + " Lines " + i + "\n";
+                                        //                    flag = false;
+                                        //                }
+                                        //                else
+                                        //                {
+                                        //                    if (ht1.ContainsKey(varAssign.ToLower()) && flag == true)
+                                        //                    {
+                                        //                        ht1[var.ToLower()] = varValue;
+                                        //                    }
+                                        //                    else
+                                        //                    {
+                                        //                        txtErrorArea.Text += "Variable are not Defined Clearly " + comma + " Lines " + i + "\n";
+                                        //                        flag = false;
+                                        //                    }
+                                        //                }
+                                        //            }
+                                        //            else
+                                        //            {
+                                        //                txtErrorArea.Text += "MultiTimes = Repeated " + item1 + " Lines " + i + "\n";
+                                        //                flag = false;
+                                        //            }
+                                        //        }
+
+                                        //    }else
+                                        //    {
+                                        //        string varAssign = item1.Trim().Split('=')[0];
+                                        //        string varValue = item1.Trim().Split('=')[1];
+                                        //        if (varValue!="" )
+                                        //        {
+                                        //            if (item1.Trim().StartsWith("@") && item1.Trim().EndsWith("@"))
+                                        //            {
+                                        //                txtErrorArea.Text += "Variable are not Defined Clearly " + item1 + " Lines " + i + "\n";
+                                        //                flag = false;
+                                        //            }
+                                        //            else
+                                        //            {//YHN PAR PHLY HT1 MN DATA INSERT KRNA HA
+                                        //                if (ht1.ContainsKey(varAssign.ToLower()) && flag==true)
+                                        //                {
+                                        //                    ht1[var.ToLower()] = varValue;
+                                        //                }
+                                        //                else
+                                        //                {
+                                        //                    txtErrorArea.Text += "Variable are not Defined Clearly " + item1 + " Lines " + i + "\n";
+                                        //                    flag = false;
+                                        //                }
+                                        //            }
+                                        //        }
+                                        //        else
+                                        //        {
+                                        //            txtErrorArea.Text += "MultiTimes = Repeated " + item1 + " Lines " + i + "\n";
+                                        //            flag = false;
+                                        //        }
+                                        //    }
+
+
+                                        //}
+                                        //else
+                                        //{
+                                        //    if (!ht.ContainsKey(item1.ToLower()))
+                                        //        txtErrorArea.Text += "Varaible or noT Declared " + item1 + " Line " + i + " \n ";
+                                        //    flag = false;
+                                        //}
+                                        #endregion
+                                        // WHOLE LINE COMES 
+                                        if (item.Trim().Contains("=")/* && !item1.Trim().Contains("+") || !item1.Trim().Contains("-") || !item1.Trim().Contains("*") || !item1.Trim().Contains("/")*/)
+                                        {
+                                            if (item.Trim().Contains(','))
+                                            {
+                                                string[] commaSpliting = item.Trim().Split(',');
+                                                foreach (var K in commaSpliting)
+                                                {
+
+
+                                                    string s = item;                                 //jUGHARI SYSTEM HERE AHAHA!!!!! 
+                                                    foreach (var SPA in K.Trim().Split('='))
+                                                    {
+                                                        if (SPA != "")
+                                                        {
+                                                            foreach (var data in SPA.Trim().Split(' '))
+                                                            {
+                                                                //string varAssign;
+                                                                //string varValue = item1.Trim().Split('=')[1];
+                                                                if (/*varValue*/data != "")
+                                                                {
+                                                                    if (data.Trim().StartsWith("@") /*&& !data.Trim().EndsWith("@")*/)
+                                                                    {
+                                                                        if (data.Trim().StartsWith("@") && !data.Trim().EndsWith("@"))
+                                                                        {
+                                                                            varAssign = data;
+                                                                            flag = true;
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            txtErrorArea.Text += "Variable are not Defined Clearly " + data + " Lines " + i + "\n";
+                                                                            flag = false;
+                                                                        }
+                                                                    }
+                                                                    else if (ht.ContainsKey(varAssign.ToLower()) && ht1.ContainsKey(varAssign.ToLower()) && flag == true)
+                                                                    {
+                                                                        //YHN PAR PHLY HT1 MN DATA INSERT KRNA HA
+
+                                                                        ht1[varAssign.ToLower()] = data;
+
+
+                                                                    }
+                                                                    else if (ht.ContainsKey(varAssign.ToLower()) && !ht1.ContainsKey(varAssign.ToLower()))
+                                                                    {
+                                                                        ht1.Add(varAssign.ToLower(), data);
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        txtErrorArea.Text += "variable are repeated , '=' repeated " + varAssign + " Lines " + i + "\n";
+                                                                        flag = false;
+
+                                                                    }
+                                                                    //}
+                                                                }
+                                                                else
+                                                                {
+                                                                    txtErrorArea.Text += "variable are repeated , '=' repeated " + item1 + " Lines " + i + "\n";
+                                                                    flag = false;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                #region AHAHA!!
+                                                //foreach (var comma in commaSpliting)
+                                                //{
+                                                //    string varAssign = comma.Trim().Split('=')[0];
+                                                //    string varValue = comma.Trim().Split('=')[1];
+                                                //    if (varValue != "")
+                                                //    {
+                                                //        if (item.Trim().StartsWith("@") && item.Trim().EndsWith("@"))
+                                                //        {
+                                                //            txtErrorArea.Text += "Variable are not Defined Clearly " + comma + " Lines " + i + "\n";
+                                                //            flag = false;
+                                                //        }
+                                                //        #region Comment
+                                                //        //else
+                                                //        //{
+
+                                                //        //    //if (ht1.ContainsKey(varAssign.ToLower()) && flag == true)
+                                                //        //    //{
+                                                //        //    //    ht1[var.ToLower()] = varValue;
+                                                //        //    //}
+                                                //        //    //else
+                                                //        //    //{
+                                                //        //    //    txtErrorArea.Text += "Variable are not Defined Clearly " + comma + " Lines " + i + "\n";
+                                                //        //    //    flag = false;
+                                                //        //    //}
+                                                //        #endregion
+                                                //        else if (ht.ContainsKey(varAssign.ToLower()) && ht1.ContainsKey(varAssign.ToLower()))
+                                                //        {//YHN PAR PHLY HT1 MN DATA INSERT KRNA HA
+
+                                                //            ht1[varAssign.ToLower()] = varValue;
+
+                                                //        }
+                                                //        else if (ht.ContainsKey(varAssign.ToLower()) && !ht1.ContainsKey(varAssign.ToLower()))
+                                                //        {
+                                                //            ht1.Add(varAssign.ToLower(), varValue);
+                                                //        }
+                                                //        else
+                                                //        {
+                                                //            txtErrorArea.Text += "variable are repeated , '=' repeated " + comma + " Lines " + i + "\n";
+                                                //            flag = false;
+
+                                                //        }
+                                                //    }
+
+                                                //}
+                                                #endregion
+
+                                            }
+                                            else
+                                            {
+
+                                                string s = item;                                 //jUGHARI SYSTEM HERE AHAHA!!!!! 
+                                                foreach (var SPA in item.Trim().Split('='))
+                                                {
+                                                    if (SPA != "")
+                                                    {
+                                                        foreach (var data in SPA.Trim().Split(' '))
+                                                        {
+                                                            //string varAssign;
+                                                            //string varValue = item1.Trim().Split('=')[1];
+                                                            if (/*varValue*/data != "")
+                                                            {
+                                                                if (data.Trim().StartsWith("@") /*&& !data.Trim().EndsWith("@")*/)
+                                                                {
+                                                                    if (data.Trim().StartsWith("@") && !data.Trim().EndsWith("@"))
+                                                                    {
+                                                                        varAssign = data;
+                                                                        flag = true;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        txtErrorArea.Text += "Variable are not Defined Clearly " + data + " Lines " + i + "\n";
+                                                                        flag = false;
+                                                                    }
+                                                                }
+                                                                else if (ht.ContainsKey(varAssign.ToLower()) && ht1.ContainsKey(varAssign.ToLower()) && flag == true)
+                                                                {
+                                                                    //YHN PAR PHLY HT1 MN DATA INSERT KRNA HA
+
+                                                                    ht1[varAssign.ToLower()] = data;
+
+
+                                                                }
+                                                                else if (ht.ContainsKey(varAssign.ToLower()) && !ht1.ContainsKey(varAssign.ToLower()))
+                                                                {
+                                                                    ht1.Add(varAssign.ToLower(), data);
+                                                                }
+                                                                else
+                                                                {
+                                                                    txtErrorArea.Text += "variable are repeated , '=' repeated " + varAssign + " Lines " + i + "\n";
+                                                                    flag = false;
+
+                                                                }
+                                                                //}
+                                                            }
+                                                            else
+                                                            {
+                                                                txtErrorArea.Text += "variable are repeated , '=' repeated " + item1 + " Lines " + i + "\n";
+                                                                flag = false;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                        else
+                                        {
+                                            if (!ht.ContainsKey(item1.ToLower()))
+                                                txtErrorArea.Text += "Varaible or noT Declared " + item1 + " Line " + i + " \n ";
+                                            flag = false;
+                                        }

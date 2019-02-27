@@ -1,0 +1,313 @@
+private void DMASRule(string cmpline, int i)
+        {
+            NewTech = null;
+            string res = null;
+            //string variables = v.Trim().Split(' ')[1];
+            foreach (var item in cmpline.Trim().Split(' '))
+            {
+                if (item != "")
+                {
+                    foreach (var item1 in item.Trim().Split(' '))
+                    {
+                        if (item1 != "")
+                            NewTech += item1;
+                    }
+                }
+
+            }
+            string LHS = NewTech.Trim().Split('=')[0];
+            string RHS = NewTech.Trim().Split('=')[1];
+            NewTech = null;
+            if (varType.ContainsKey(LHS))
+            {
+                datatype = varType[LHS].ToString();
+                char[] EVAL = RHS.ToCharArray();
+                foreach (var zs in EVAL)
+                {
+                    if (zs != ' ')
+                    {
+                        if (zs.Equals('@'))
+                        {
+                            NewTech += zs;
+                        }
+                        else if (zs.Equals('A') || zs.Equals('B') || zs.Equals('C') || zs.Equals('D') ||
+                                                            zs.Equals('E') || zs.Equals('F') || zs.Equals('G') || zs.Equals('H') ||
+                                                            zs.Equals('I') || zs.Equals('J') || zs.Equals('K') || zs.Equals('L') ||
+                                                            zs.Equals('M') || zs.Equals('N') || zs.Equals('O') || zs.Equals('P') ||
+                                                            zs.Equals('Q') || zs.Equals('R') || zs.Equals('S') || zs.Equals('T') ||
+                                                            zs.Equals('U') || zs.Equals('V') || zs.Equals('W') || zs.Equals('X') ||
+                                                            zs.Equals('Y') || zs.Equals('Z'))
+                        {
+                            NewTech += zs;
+                        }
+                        else if (zs.Equals('0') || zs.Equals('1') || zs.Equals('2') || zs.Equals('3') || zs.Equals('4') ||
+                           zs.Equals('5') || zs.Equals('6') || zs.Equals('7') || zs.Equals('8') || zs.Equals('9') || zs.Equals('.'))
+                        {
+                            res += zs;
+                        }
+                        else
+                        {
+
+                            if (zs.Equals('+'))
+                            {
+                                #region Addition
+                                if (NewTech.Trim().StartsWith("@") && !NewTech.Trim().EndsWith("@") || NewTech != "")
+                                {
+                                    if (varType.ContainsKey(NewTech) && varData.ContainsKey(NewTech))
+                                    {
+                                        try
+                                        {
+                                            if (varType[NewTech].Equals("INT"))
+                                            {
+                                                res += Convert.ToInt32(varData[NewTech]) + "+";
+
+                                            }
+                                            else if (varType[NewTech].Equals("FLOAT"))
+                                            {
+                                                res += float.Parse(varData[NewTech].ToString().Trim().Split('f')[0]) + "+";
+                                            }
+                                            else if (varType[NewTech].Equals("CHAR"))
+                                            {
+                                                res += Convert.ToUInt32(varData[NewTech.ToLower()]) + "+";
+                                            }
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            richtxtResult.Text += ex + "" + "Lines " + i + " \n";
+                                            flag = false;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        richtxtResult.Text += "Varaible Are Not Declared" + NewTech + "" + "Lines " + i + " \n";
+                                        flag = false;
+                                    }
+                                    NewTech = "";
+                                }
+                                else if (!NewTech.Trim().StartsWith("@") && !NewTech.Trim().EndsWith("@") || NewTech == null)
+                                {
+                                    res += "+";
+                                }
+                                else
+                                {
+                                    richtxtResult.Text += "Variable Declaration Error" + NewTech + "" + "Lines " + i + " \n";
+                                    flag = false;
+                                }
+                                #endregion
+
+                            }
+                            else if (zs.Equals('-'))
+                            {
+                                #region Subtraction
+                                if (NewTech.Trim().StartsWith("@") && !NewTech.Trim().EndsWith("@") || NewTech != "")
+                                {
+                                    if (varType.ContainsKey(NewTech) && varData.ContainsKey(NewTech))
+                                    {
+                                        try
+                                        {
+                                            if (varType[NewTech].Equals("INT"))
+                                            {
+                                                res += Convert.ToInt32(varData[NewTech.ToLower()]) + "-";
+
+                                            }
+                                            else if (varType[NewTech].Equals("FLOAT"))
+                                            {
+                                                res += float.Parse(varData[NewTech].ToString().Trim().Split('f')[0]) + "-";
+                                            }
+                                            else if (varType[NewTech].Equals("CHAR"))
+                                            {
+                                                res += Convert.ToUInt32(varData[NewTech.ToLower()]) + "-";
+                                            }
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            richtxtResult.Text += ex + "" + "Lines " + i + " \n";
+                                            flag = false;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        richtxtResult.Text += "Varaible Are Not Declared" + NewTech + "" + "Lines " + i + " \n";
+                                        flag = false;
+                                    }
+                                    NewTech = "";
+                                }
+                                else if (!NewTech.Trim().StartsWith("@") && !NewTech.Trim().EndsWith("@") || NewTech == null)
+                                {
+                                    res += "-";
+                                }
+                                else
+                                {
+                                    richtxtResult.Text += "Variable Declaration Error" + NewTech + "" + "Lines " + i + " \n";
+                                    flag = false;
+                                }
+                                #endregion
+
+                            }
+                            else if (zs.Equals('*'))
+                            {
+                                #region Multiplication
+                                if (NewTech.Trim().StartsWith("@") && !NewTech.Trim().EndsWith("@") || NewTech != "")
+                                {
+                                    if (varType.ContainsKey(NewTech) && varData.ContainsKey(NewTech))
+                                    {
+                                        try
+                                        {
+                                            if (varType[NewTech].Equals("INT"))
+                                            {
+                                                res += Convert.ToInt32(varData[NewTech.ToLower()]) + "*";
+
+                                            }
+                                            else if (varType[NewTech].Equals("FLOAT"))
+                                            {
+                                                res += float.Parse(varData[NewTech].ToString().Trim().Split('f')[0]) + "*";
+                                            }
+                                            else if (varType[NewTech].Equals("CHAR"))
+                                            {
+                                                res += Convert.ToUInt32(varData[NewTech.ToLower()]) + "*";
+                                            }
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            richtxtResult.Text += ex + "" + "Lines " + i + " \n";
+                                            flag = false;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        richtxtResult.Text += "Varaible Are Not Declared" + NewTech + "" + "Lines " + i + " \n";
+                                        flag = false;
+                                    }
+                                    NewTech = "";
+                                }
+                                else if (!NewTech.Trim().StartsWith("@") && !NewTech.Trim().EndsWith("@") || NewTech == null)
+                                {
+                                    res += "*";
+                                }
+                                else
+                                {
+                                    richtxtResult.Text += "Variable Declaration Error" + NewTech + "" + "Lines " + i + " \n";
+                                    flag = false;
+                                }
+                                #endregion
+
+                            }
+                            else if (zs.Equals('/'))
+                            {
+                                #region Division
+                                if (NewTech.Trim().StartsWith("@") && !NewTech.Trim().EndsWith("@") || NewTech != "")
+                                {
+                                    if (varType.ContainsKey(NewTech) && varData.ContainsKey(NewTech))
+                                    {
+                                        try
+                                        {
+                                            if (varType[NewTech].Equals("INT"))
+                                            {
+                                                res += Convert.ToInt32(varData[NewTech.ToLower()]) + "/";
+
+                                            }
+                                            else if (varType[NewTech].Equals("FLOAT"))
+                                            {
+                                                res += float.Parse(varData[NewTech].ToString().Trim().Split('f')[0]) + "/";
+                                            }
+                                            else if (varType[NewTech].Equals("CHAR"))
+                                            {
+                                                res += Convert.ToUInt32(varData[NewTech.ToLower()]) + "/";
+                                            }
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            richtxtResult.Text += ex + "" + "Lines " + i + " \n";
+                                            flag = false;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        richtxtResult.Text += "Varaible Are Not Declared" + NewTech + "" + "Lines " + i + " \n";
+                                        flag = false;
+                                    }
+                                    NewTech = "";
+                                }
+                                else if (!NewTech.Trim().StartsWith("@") && !NewTech.Trim().EndsWith("@") || NewTech == null)
+                                {
+                                    res += "/";
+                                }
+                                else
+                                {
+                                    richtxtResult.Text += "Variable Declaration Error" + NewTech + "" + "Lines " + i + " \n";
+                                    flag = false;
+                                }
+                                #endregion
+
+                            }
+
+                        }
+                    }
+                }
+                if (NewTech.Trim().StartsWith("@") && !NewTech.Trim().EndsWith("@") || NewTech != "")
+                {
+                    if (varType.ContainsKey(NewTech) && varData.ContainsKey(NewTech))
+                    {
+                        try
+                        {
+                            if (varType[NewTech].Equals("INT"))
+                            {
+                                res += Convert.ToInt32(varData[NewTech]);
+
+                            }
+                            else if (varType[NewTech].Equals("FLOAT"))
+                            {
+                                res += float.Parse(varData[NewTech].ToString().Trim().Split('f')[0]);
+                            }
+                            else if (varType[NewTech].Equals("CHAR"))
+                            {
+                                res += Convert.ToUInt32(varData[NewTech]);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            richtxtResult.Text += ex + "" + "Lines " + i + " \n";
+                            flag = false;
+                        }
+                    }
+                    else
+                    {
+                        richtxtResult.Text += "Variable Are Not Declared" + NewTech + " " + "Lines " + i + " \n";
+                        flag = false;
+                    }
+                    NewTech = "";
+                }
+                try
+                {
+
+                    if (!res.Contains(".") && varType[LHS].Equals("INT"))
+                    {
+                        string asn = dt.Compute(res, null).ToString();
+                        varData[LHS] = asn;
+                        res = null;
+                    }
+                    else if (/*res.Contains(".") &&*/ varType[LHS].Equals("FLOAT"))
+                    {
+                        string asn = dt.Compute(res, null).ToString();
+                        varData[LHS] = asn + "f";
+                        res = null;
+                    }
+                    else
+                    {
+                        richtxtResult.Text += " Can't be parse 412 " + "" + "Lines " + i + " \n";
+                        flag = false;
+                    }
+
+
+                }
+                catch (Exception)
+                {
+                    richtxtResult.Text += " Can't be parse " + "" + "Lines " + i + " \n";
+                    flag = false;
+                }
+            }
+            else
+            {
+                richtxtResult.Text += "varaible Are Not Declared " + LHS + " At Line " + i + "\n";
+            }
+        }

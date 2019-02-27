@@ -1,0 +1,12 @@
+F:\Study Material\BSCS-7C\Compiler Construction\ScarLanguage\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe.config
+F:\Study Material\BSCS-7C\Compiler Construction\ScarLanguage\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe
+F:\Study Material\BSCS-7C\Compiler Construction\ScarLanguage\ConsoleApplication1\bin\Debug\ConsoleApplication1.pdb
+F:\Study Material\BSCS-7C\Compiler Construction\ScarLanguage\ConsoleApplication1\obj\Debug\ConsoleApplication1.csprojResolveAssemblyReference.cache
+F:\Study Material\BSCS-7C\Compiler Construction\ScarLanguage\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe
+F:\Study Material\BSCS-7C\Compiler Construction\ScarLanguage\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb
+E:\Study Material\BSCS-7C\Compiler Construction\ScarLanguage\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe.config
+E:\Study Material\BSCS-7C\Compiler Construction\ScarLanguage\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe
+E:\Study Material\BSCS-7C\Compiler Construction\ScarLanguage\ConsoleApplication1\bin\Debug\ConsoleApplication1.pdb
+E:\Study Material\BSCS-7C\Compiler Construction\ScarLanguage\ConsoleApplication1\obj\Debug\ConsoleApplication1.csprojResolveAssemblyReference.cache
+E:\Study Material\BSCS-7C\Compiler Construction\ScarLanguage\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe
+E:\Study Material\BSCS-7C\Compiler Construction\ScarLanguage\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb

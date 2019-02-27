@@ -1,0 +1,6 @@
+F:\Study Material\BSCS-7C\Compiler Construction\ScarLanguage\RegexChecking\bin\Debug\RegexChecking.exe.config
+F:\Study Material\BSCS-7C\Compiler Construction\ScarLanguage\RegexChecking\bin\Debug\RegexChecking.exe
+F:\Study Material\BSCS-7C\Compiler Construction\ScarLanguage\RegexChecking\bin\Debug\RegexChecking.pdb
+F:\Study Material\BSCS-7C\Compiler Construction\ScarLanguage\RegexChecking\obj\Debug\RegexChecking.csprojResolveAssemblyReference.cache
+F:\Study Material\BSCS-7C\Compiler Construction\ScarLanguage\RegexChecking\obj\Debug\RegexChecking.exe
+F:\Study Material\BSCS-7C\Compiler Construction\ScarLanguage\RegexChecking\obj\Debug\RegexChecking.pdb

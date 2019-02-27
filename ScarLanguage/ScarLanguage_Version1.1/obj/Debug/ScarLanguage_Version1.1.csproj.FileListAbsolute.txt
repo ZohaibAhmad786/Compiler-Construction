@@ -1,0 +1,10 @@
+F:\Study Material\BSCS-7C\Compiler Construction\ScarLanguage\ScarLanguage_Version1.1\bin\Debug\ScarLanguage_Version1.1.exe.config
+F:\Study Material\BSCS-7C\Compiler Construction\ScarLanguage\ScarLanguage_Version1.1\obj\Debug\ScarLanguage_Version1.1.exe
+F:\Study Material\BSCS-7C\Compiler Construction\ScarLanguage\ScarLanguage_Version1.1\obj\Debug\ScarLanguage_Version1.1.pdb
+F:\Study Material\BSCS-7C\Compiler Construction\ScarLanguage\ScarLanguage_Version1.1\bin\Debug\ScarLanguage_Version1.1.exe
+F:\Study Material\BSCS-7C\Compiler Construction\ScarLanguage\ScarLanguage_Version1.1\bin\Debug\ScarLanguage_Version1.1.pdb
+F:\Study Material\BSCS-7C\Compiler Construction\ScarLanguage\ScarLanguage_Version1.1\obj\Debug\ScarLanguage_Version1.1.csprojResolveAssemblyReference.cache
+F:\Study Material\BSCS-7C\Compiler Construction\ScarLanguage\ScarLanguage_Version1.1\obj\Debug\ScarLanguage_Version1._1.Form1.resources
+F:\Study Material\BSCS-7C\Compiler Construction\ScarLanguage\ScarLanguage_Version1.1\obj\Debug\ScarLanguage_Version1._1.Properties.Resources.resources
+F:\Study Material\BSCS-7C\Compiler Construction\ScarLanguage\ScarLanguage_Version1.1\obj\Debug\ScarLanguage_Version1.1.csproj.GenerateResource.Cache
+F:\Study Material\BSCS-7C\Compiler Construction\ScarLanguage\ScarLanguage_Version1.1\obj\Debug\ScarLanguage_Version1._1.InputTakingForm.resources
